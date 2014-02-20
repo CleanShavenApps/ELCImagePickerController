@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
       :file => 'README.md'
     }
     s.author = {'Clean Shaven Apps Pte. Ltd.' => 'http://www.dispatchapp.net'}
-    s.source = {:https://github.com/CleanShavenApps/ELCImagePickerController.git',
+    s.source = {:git => 'https://github.com/CleanShavenApps/ELCImagePickerController.git',
     			:tag => '0.2.1-beta'
     		   }
     s.platform = :ios, '6.0'
