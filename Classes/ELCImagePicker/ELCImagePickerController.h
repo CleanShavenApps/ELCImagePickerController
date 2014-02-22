@@ -36,6 +36,22 @@
 @property (nonatomic, assign) NSInteger maximumImagesCount;
 
 /**
+ * The title of the alert message if the user attempts to select more than
+ * \c maximumImagesCount images.
+ *
+ * Default: 'Too many images'
+ */
+@property (nonatomic, copy) NSString *exceededNumberOfImagesAlertTitle;
+
+/**
+ * The body of the alert message if the user attempts to select more than
+ * \c maximumImagesCount images.
+ *
+ * Default: 'You can only choose up to \c %ld photos at a time.'
+ */
+@property (nonatomic, copy) NSString *exceededNumberOfImagesAlertBody;
+
+/**
  * YES if the picker should return the original image,
  * or NO for an image suitable for displaying full screen on the device.
  */

@@ -49,13 +49,13 @@
 {
     BOOL shouldSelect = previousCount < self.maximumImagesCount;
     if (!shouldSelect) {
-        NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Only %d photos please!", nil), self.maximumImagesCount];
-        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"You can only send %d photos at a time.", nil), self.maximumImagesCount];
+        NSString *title = [NSString stringWithFormat:self.exceededNumberOfImagesAlertTitle, self.maximumImagesCount];
+        NSString *message = [NSString stringWithFormat:self.exceededNumberOfImagesAlertBody, self.maximumImagesCount];
         [[[UIAlertView alloc] initWithTitle:title
                                     message:message
                                    delegate:nil
                           cancelButtonTitle:nil
-                          otherButtonTitles:NSLocalizedString(@"Okay", nil), nil] show];
+                          otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
     }
     return shouldSelect;
 }
@@ -89,7 +89,7 @@
             
             if (_returnsOriginalImage) {
                 imgRef = [assetRep fullResolutionImage];
-                orientation = [assetRep orientation];
+                orientation = (UIImageOrientation) [assetRep orientation];
             } else {
                 imgRef = [assetRep fullScreenImage];
             }
@@ -117,6 +117,28 @@
     } else {
         return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
     }
+}
+
+#pragma mark - 
+
+- (NSString *)exceededNumberOfImagesAlertTitle
+{
+	if (_exceededNumberOfImagesAlertTitle)
+	{
+		return _exceededNumberOfImagesAlertTitle;
+	}
+	
+	return [NSString stringWithFormat:NSLocalizedString(@"Too many images", nil), self.maximumImagesCount];
+}
+
+- (NSString *)exceededNumberOfImagesAlertBody
+{
+	if (_exceededNumberOfImagesAlertBody)
+	{
+		return _exceededNumberOfImagesAlertBody;
+	}
+	
+	return [NSString stringWithFormat:NSLocalizedString(@"You can only choose up to %ld photos at a time.", nil), (long) self.maximumImagesCount];
 }
 
 @end
