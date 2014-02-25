@@ -47,6 +47,22 @@
 
 - (BOOL)shouldSelectAsset:(ELCAsset *)asset previousCount:(NSUInteger)previousCount
 {
+	// Check if asset is availble. Photo stream photos that have not been
+	// downloaded to device returns nil on defaultRepresentation, and we've
+	// no way to trigger the download
+	if (![[asset asset] defaultRepresentation])
+	{
+		UIAlertView *alert =
+		[[UIAlertView alloc] initWithTitle:self.photoStreamPhotoUnavailableTitle
+								   message:self.photoStreamPhotoUnavailableBody
+								  delegate:nil
+						 cancelButtonTitle:self.okButtonTitle
+						 otherButtonTitles:nil];
+		[alert show];
+		
+		return NO;
+	}
+	
     BOOL shouldSelect = previousCount < self.maximumImagesCount;
     if (!shouldSelect) {
         NSString *title = [NSString stringWithFormat:self.exceededNumberOfImagesAlertTitle, self.maximumImagesCount];
@@ -54,8 +70,8 @@
         [[[UIAlertView alloc] initWithTitle:title
                                     message:message
                                    delegate:nil
-                          cancelButtonTitle:nil
-                          otherButtonTitles:NSLocalizedString(@"OK", nil), nil] show];
+                          cancelButtonTitle:self.okButtonTitle
+                          otherButtonTitles:nil] show];
     }
     return shouldSelect;
 }
@@ -123,22 +139,60 @@
 
 - (NSString *)exceededNumberOfImagesAlertTitle
 {
-	if (_exceededNumberOfImagesAlertTitle)
+	if (!_exceededNumberOfImagesAlertTitle)
 	{
-		return _exceededNumberOfImagesAlertTitle;
+		_exceededNumberOfImagesAlertTitle =
+		[NSString stringWithFormat:NSLocalizedString(@"Too Many Images", nil),
+		 (long) self.maximumImagesCount];
 	}
-	
-	return [NSString stringWithFormat:NSLocalizedString(@"Too many images", nil), self.maximumImagesCount];
+
+	return _exceededNumberOfImagesAlertTitle;
 }
 
 - (NSString *)exceededNumberOfImagesAlertBody
 {
-	if (_exceededNumberOfImagesAlertBody)
+	if (!_exceededNumberOfImagesAlertBody)
 	{
-		return _exceededNumberOfImagesAlertBody;
+		_exceededNumberOfImagesAlertBody =
+		[NSString stringWithFormat:
+		 NSLocalizedString(@"You can only choose up to %ld photos at a time.", nil),
+		 (long) self.maximumImagesCount];
+	}
+
+	return _exceededNumberOfImagesAlertBody;
+}
+
+- (NSString *)photoStreamPhotoUnavailableTitle
+{
+	if (!_photoStreamPhotoUnavailableTitle)
+	{
+		_photoStreamPhotoUnavailableTitle =
+		NSLocalizedString(@"Photo Not Available", nil);
+	}
+
+	return _photoStreamPhotoUnavailableTitle;
+}
+
+- (NSString *)photoStreamPhotoUnavailableBody
+{
+	if (!_photoStreamPhotoUnavailableBody)
+	{
+		_photoStreamPhotoUnavailableBody =
+		NSLocalizedString(@"This photo has not been downloaded from iCloud Photo Stream. You can download it by viewing it in Photos.app first.", nil);
+	}
+
+	return _photoStreamPhotoUnavailableBody;
+}
+
+- (NSString *)okButtonTitle
+{
+	if (!_okButtonTitle)
+	{
+		_okButtonTitle =
+		NSLocalizedString(@"OK", nil);
 	}
 	
-	return [NSString stringWithFormat:NSLocalizedString(@"You can only choose up to %ld photos at a time.", nil), (long) self.maximumImagesCount];
+	return _okButtonTitle;
 }
 
 @end

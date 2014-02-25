@@ -39,7 +39,7 @@
  * The title of the alert message if the user attempts to select more than
  * \c maximumImagesCount images.
  *
- * Default: 'Too many images'
+ * Default: 'Too Many Images'
  */
 @property (nonatomic, copy) NSString *exceededNumberOfImagesAlertTitle;
 
@@ -50,6 +50,30 @@
  * Default: 'You can only choose up to \c %ld photos at a time.'
  */
 @property (nonatomic, copy) NSString *exceededNumberOfImagesAlertBody;
+
+/**
+ * The title of the alert message if the user attempts to select a photo
+ * stream photo that has not been downloaded to the device.
+ *
+ * Default: 'Photo Not Available'
+ */
+@property (nonatomic, copy) NSString *photoStreamPhotoUnavailableTitle;
+
+/**
+ * The body of the alert message if the user attempts to select a photo
+ * stream photo that has not been downloaded to the device.
+ *
+ * Default: 'This photo has not been downloaded from iCloud Photo Stream.
+ * You can download it by viewing it in Photos.app first.'
+ */
+@property (nonatomic, copy) NSString *photoStreamPhotoUnavailableBody;
+
+/**
+ * The title of the button to dismiss alert messages.
+ *
+ * Default: 'OK'
+ */
+@property (nonatomic, copy) NSString *okButtonTitle;
 
 /**
  * YES if the picker should return the original image,
