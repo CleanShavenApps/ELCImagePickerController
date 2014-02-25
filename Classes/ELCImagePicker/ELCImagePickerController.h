@@ -69,7 +69,7 @@
 @property (nonatomic, copy) NSString *photoStreamPhotoUnavailableBody;
 
 /**
- * The title of the button to dismiss alert messages.
+ * The title of the button to dismiss an alert message.
  *
  * Default: 'OK'
  */

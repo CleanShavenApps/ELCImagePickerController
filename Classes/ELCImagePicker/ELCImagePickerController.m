@@ -142,10 +142,10 @@
 	if (!_exceededNumberOfImagesAlertTitle)
 	{
 		_exceededNumberOfImagesAlertTitle =
-		[NSString stringWithFormat:NSLocalizedString(@"Too Many Images", nil),
+		[NSString stringWithFormat:NSLocalizedStringFromTable(@"alert.exceededNumberOfImages.title", @"ELCImagePickerController", @"The title of the alert message if the user attempts to select more than maximumImagesCount images."),
 		 (long) self.maximumImagesCount];
 	}
-
+	
 	return _exceededNumberOfImagesAlertTitle;
 }
 
@@ -154,8 +154,7 @@
 	if (!_exceededNumberOfImagesAlertBody)
 	{
 		_exceededNumberOfImagesAlertBody =
-		[NSString stringWithFormat:
-		 NSLocalizedString(@"You can only choose up to %ld photos at a time.", nil),
+		[NSString stringWithFormat:NSLocalizedStringFromTable(@"alert.exceededNumberOfImages.body", @"ELCImagePickerController", @"The body of the alert message if the user attempts to select more than maximumImagesCount images."),
 		 (long) self.maximumImagesCount];
 	}
 
@@ -167,7 +166,7 @@
 	if (!_photoStreamPhotoUnavailableTitle)
 	{
 		_photoStreamPhotoUnavailableTitle =
-		NSLocalizedString(@"Photo Not Available", nil);
+		NSLocalizedStringFromTable(@"alert.photoStreamPhotoUnavailable.title", @"ELCImagePickerController", @"The title of the alert message if the user attempts to select a photo stream photo that has not been downloaded to the device.");
 	}
 
 	return _photoStreamPhotoUnavailableTitle;
@@ -178,7 +177,7 @@
 	if (!_photoStreamPhotoUnavailableBody)
 	{
 		_photoStreamPhotoUnavailableBody =
-		NSLocalizedString(@"This photo has not been downloaded from iCloud Photo Stream. You can download it by viewing it in Photos.app first.", nil);
+		NSLocalizedStringFromTable(@"alert.photoStreamPhotoUnavailable.body", @"ELCImagePickerController", @"The body of the alert message if the user attempts to select a photo stream photo that has not been downloaded to the device.");
 	}
 
 	return _photoStreamPhotoUnavailableBody;
@@ -189,7 +188,7 @@
 	if (!_okButtonTitle)
 	{
 		_okButtonTitle =
-		NSLocalizedString(@"OK", nil);
+		NSLocalizedStringFromTable(@"alert.ok.button", @"ELCImagePickerController", @"The title of the button to dismiss an alert message.");
 	}
 	
 	return _okButtonTitle;

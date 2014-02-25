@@ -1,0 +1,91 @@
+/* 
+  ELCImagePickerController.strings
+  ELCImagePickerDemo
+
+  Created by Lin Junjie on 25/2/14.
+  Copyright (c) 2014 ELC Technologies. All rights reserved.
+*/
+
+/**
+ The title of the alert message if the user attempts to select more than
+ maximumImagesCount images.
+ */
+"alert.exceededNumberOfImages.title" =
+"Too Many Images";
+
+/**
+ The body of the alert message if the user attempts to select more than
+ maximumImagesCount images.
+ */
+"alert.exceededNumberOfImages.body" =
+"You can only choose up to %ld photos at a time.";
+
+/**
+ The title of the alert message if the user attempts to select a photo
+ stream photo that has not been downloaded to the device.
+ */
+"alert.photoStreamPhotoUnavailable.title" =
+"Photo Not Available";
+
+/**
+ The body of the alert message if the user attempts to select a photo
+ stream photo that has not been downloaded to the device.
+ */
+"alert.photoStreamPhotoUnavailable.body" =
+"This photo has not been downloaded from iCloud Photo Stream. You can download it by viewing it in Photos.app first.";
+
+/**
+ The title of the button to dismiss an alert message.
+ */
+"alert.ok.button" =
+"OK";
+
+/**
+ The title of the image picker while loading albums.
+ */
+"status.loading" =
+"Loading…";
+
+/**
+ The title of the image picker when albums are loaded.
+ */
+"status.selectAnAlbum" =
+"Select an Album";
+
+/**
+ The title of the image picker to pick a single photo
+ */
+"status.pickPhoto" =
+"Pick Photo";
+
+/**
+ The title of the image picker to pick more than one photo
+ */
+"status.pickMultiplePhotos" =
+"Pick Photos";
+
+/**
+ The title of the error message if there is an error loading photos because
+ access has been denied
+ */
+"error.accessDenied.title" =
+"Photos Access Denied";
+
+/**
+ The title of the error message if there is an unknown error with code
+ */
+"error.unknown.title" =
+"Error (%ld)";
+
+/**
+ The body of the error message if the user has denied access to photos
+ */
+"error.accessDenied.userDenied.message" =
+"Please allow access to your photos in Settings > Privacy > Photos.";
+
+/**
+ The body of the error message if the user has denied access to Location Services
+ */
+"error.accessDenied.globalDenied.message" =
+"Please enable Location Services in Settings > Privacy.";
+

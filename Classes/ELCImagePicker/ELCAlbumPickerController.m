@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
 	
-	[self.navigationItem setTitle:@"Loading..."];
+	[self.navigationItem setTitle:NSLocalizedStringFromTable(@"status.loading", @"ELCImagePickerController", @"The title of the image picker while loading albums.")];
 
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.parent action:@selector(cancelImagePicker)];
 	[self.navigationItem setRightBarButtonItem:cancelButton];
@@ -64,28 +64,75 @@
                 [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:YES];
             };
             
+			ELCAlbumPickerController *__weak weakSelf = self;
+			
             // Group Enumerator Failure Block
             void (^assetGroupEnumberatorFailure)(NSError *) = ^(NSError *error) {
-                
-                UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Album Error: %@ - %@", [error localizedDescription], [error localizedRecoverySuggestion]] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+				NSString *title = nil;
+				NSString *message = nil;
+				
+				if ([[error domain] isEqualToString:ALAssetsLibraryErrorDomain])
+				{
+					if ([error code] == ALAssetsLibraryAccessUserDeniedError)
+					{
+						title =
+						NSLocalizedStringFromTable(@"error.accessDenied.title", @"ELCImagePickerController", @"The title of the error message if there is an error loading photos because access has been denied");
+						message =
+						NSLocalizedStringFromTable(@"error.accessDenied.userDenied.message", @"ELCImagePickerController", @"The body of the error message if the user has denied access to photos");
+					}
+					else if ([error code] == ALAssetsLibraryAccessGloballyDeniedError)
+					{
+						title =
+						NSLocalizedStringFromTable(@"error.accessDenied.title", @"ELCImagePickerController", @"The title of the error message if there is an error loading photos because access has been denied");
+						message =
+						NSLocalizedStringFromTable(@"error.accessDenied.globalDenied.message", @"ELCImagePickerController", @"The body of the error message if the user has denied access to Location Services");
+					}
+				}
+				
+				if (!title)
+				{
+					title =
+					[NSString stringWithFormat:
+					NSLocalizedStringFromTable(@"error.unknown.title", @"ELCImagePickerController", @"The title of the error message if there is an unknown error"),
+					 (long) [error code]];
+				}
+				
+				if (!message)
+				{
+					message = [error localizedDescription];
+					
+					if ([[error localizedRecoverySuggestion] length])
+					{
+						message = [message stringByAppendingFormat:@" - %@",
+								   [error localizedRecoverySuggestion]];
+					}
+				}
+				
+				[weakSelf.navigationItem setTitle:title];
+				
+                UIAlertView * alert =
+				[[UIAlertView alloc] initWithTitle:title
+										   message:message
+										  delegate:nil
+								 cancelButtonTitle:
+				 NSLocalizedStringFromTable(@"alert.ok.button", @"ELCImagePickerController", @"The title of the button to dismiss an alert message.")
+								 otherButtonTitles:nil];
                 [alert show];
-                
-                NSLog(@"A problem occured %@", [error description]);	                                 
-            };	
+            };
                     
             // Enumerate Albums
             [self.library enumerateGroupsWithTypes:ALAssetsGroupAll
-                                   usingBlock:assetGroupEnumerator 
-                                 failureBlock:assetGroupEnumberatorFailure];
+										usingBlock:assetGroupEnumerator
+									  failureBlock:assetGroupEnumberatorFailure];
         
         }
-    });    
+    });
 }
 
 - (void)reloadTableView
 {
 	[self.tableView reloadData];
-	[self.navigationItem setTitle:@"Select an Album"];
+	[self.navigationItem setTitle:NSLocalizedStringFromTable(@"status.selectAnAlbum", @"ELCImagePickerController", @"The title of the image picker when albums are loaded.")];
 }
 
 - (BOOL)shouldSelectAsset:(ELCAsset *)asset previousCount:(NSUInteger)previousCount

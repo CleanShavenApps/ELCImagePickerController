@@ -121,7 +121,7 @@
 	
 	// Follow iOS photo picker behavior of always aligning the row of
 	// photos to the left.
-	NSUInteger numberOfAssetsToLayout = 4;
+	NSUInteger numberOfAssetsToLayout = self.maximumNumberOfColumns;
 	
     CGFloat totalWidth = numberOfAssetsToLayout * 75 + (numberOfAssetsToLayout - 1) * 4;
     CGFloat startX = (self.bounds.size.width - totalWidth) / 2;

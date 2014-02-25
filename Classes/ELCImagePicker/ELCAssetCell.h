@@ -10,6 +10,8 @@
 
 @interface ELCAssetCell : UITableViewCell
 
+@property (nonatomic) NSUInteger maximumNumberOfColumns;
+
 - (void)setAssets:(NSArray *)assets;
 
 @end
