@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'ELCImagePickerController'
-    s.version = '0.2.1-beta6'
+    s.version = '0.2.1-beta7'
     s.summary = 'A Multiple Selection Image Picker.'
     s.homepage = 'https://github.com/CleanShavenApps/ELCImagePickerController.git'
     s.license = {
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
     }
     s.author = {'Clean Shaven Apps Pte. Ltd.' => 'http://www.dispatchapp.net'}
     s.source = {:git => 'https://github.com/CleanShavenApps/ELCImagePickerController.git',
-    			:tag => '0.2.1-beta6'
+    			:tag => '0.2.1-beta7'
     		   }
     s.platform = :ios, '6.0'
     s.resources = 'Classes/**/*.{xib,png,strings}'
