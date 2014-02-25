@@ -64,7 +64,14 @@
             overlayView.hidden = asset.selected ? NO : YES;
         } else {
             if (overlayImage == nil) {
-                overlayImage = [UIImage imageNamed:@"Overlay.png"];
+				if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)
+				{
+					overlayImage = [UIImage imageNamed:@"Overlay.png"];
+				}
+				else
+				{
+					overlayImage = [UIImage imageNamed:@"Overlay-iOS7.png"];
+				}
             }
             UIImageView *overlayView = [[UIImageView alloc] initWithImage:overlayImage];
             [_overlayViewArray addObject:overlayView];
@@ -76,10 +83,7 @@
 - (void)cellTapped:(UITapGestureRecognizer *)tapRecognizer
 {
     CGPoint point = [tapRecognizer locationInView:self];
-    CGFloat totalWidth = self.rowAssets.count * 75 + (self.rowAssets.count - 1) * 4;
-    CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
-    
-	CGRect frame = CGRectMake(startX, 2, 75, 75);
+	CGRect frame = [self elc_startFrame];
 	
 	for (int i = 0; i < [_rowAssets count]; ++i) {
         if (CGRectContainsPoint(frame, point)) {
@@ -89,16 +93,13 @@
             overlayView.hidden = !asset.selected;
             break;
         }
-        frame.origin.x = frame.origin.x + frame.size.width + 4;
+		frame = [self elc_frameByAdvancingFrame:frame];
     }
 }
 
 - (void)layoutSubviews
-{    
-    CGFloat totalWidth = self.rowAssets.count * 75 + (self.rowAssets.count - 1) * 4;
-    CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
-    
-	CGRect frame = CGRectMake(startX, 2, 75, 75);
+{
+	CGRect frame = [self elc_startFrame];
 	
 	for (int i = 0; i < [_rowAssets count]; ++i) {
 		UIImageView *imageView = [_imageViewArray objectAtIndex:i];
@@ -109,9 +110,29 @@
         [overlayView setFrame:frame];
         [self addSubview:overlayView];
 		
-		frame.origin.x = frame.origin.x + frame.size.width + 4;
+		frame = [self elc_frameByAdvancingFrame:frame];
 	}
 }
 
+- (CGRect)elc_startFrame
+{
+	// Uncomment to keep old behavior of centralizing the entire row of photos
+//	NSUInteger numberOfAssetsToLayout = self.rowAssets.count;
+	
+	// Follow iOS photo picker behavior of always aligning the row of
+	// photos to the left.
+	NSUInteger numberOfAssetsToLayout = 4;
+	
+    CGFloat totalWidth = numberOfAssetsToLayout * 75 + (numberOfAssetsToLayout - 1) * 4;
+    CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
+    
+	return CGRectMake(startX, 2, 75, 75);
+}
+
+- (CGRect)elc_frameByAdvancingFrame:(CGRect)frame
+{
+	frame.origin.x = frame.origin.x + frame.size.width + 4;
+	return frame;
+}
 
 @end
